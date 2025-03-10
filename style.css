@@ -1,0 +1,147 @@
+
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Styling untuk header */
+  header {
+    background-color: #191970;
+    color: white;
+    padding: 10px 0;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;  /* Membuat logo dan menu berada di ujung kiri dan kanan */
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;  /* Menyusun logo dan teks dalam satu baris */
+  }
+  
+  
+  .navbar-custom ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  .navbar-custom ul li {
+    margin-left: 20px;
+  }
+  
+  .navbar-custom ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .navbar-custom ul li a:hover {
+    color: #f39c12;
+  }
+  
+  /* Footer section */
+  footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  
+  .message-text p {
+    font-size: 20px;
+    line-height: 2;
+    color: #333;
+    padding: 10px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  /* Logo in the header */
+  .logo1 img {
+    height: 80px; /* Sets the logo height */
+    width: auto; /* Maintains aspect ratio */
+  }
+  
+  .kepala-sekolah-img {
+    max-width: 200px;  /* Adjust this to control the size (this makes the image "medium") */
+    max-height: auto;  /* Maintain aspect ratio */
+    border-radius: 30px;
+  }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .calendar {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .month-picker, .year-picker {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .year-picker {
+            display: flex;
+            align-items: center;
+        }
+        .year-change {
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .calendar-week-days, .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        .calendar-week-days div, .calendar-days div {
+            text-align: center;
+            padding: 10px;
+        }
+        .calendar-days div {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .calendar-days div:hover {
+            background: #f0f0f0;
+        }
+        .calendar-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .date-time-formate {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .day-text-formate {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .time-formate, .date-formate {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        #monthYear {
+            display: none;
+        }

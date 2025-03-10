@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Calendar</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            margin-right: 10px;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: #ffffff;
+        }
+        .calendar {
+            max-width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .calendar-week-days, .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        .calendar-week-days div, .calendar-days .day {
+            text-align: center;
+            padding: 10px;
+        }
+        .calendar-days .day.event {
+            background-color: #ffcccb; /* Warna untuk tanggal dengan event */
+            border-radius: 5px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+        }
+        .controls select {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>        
+        <div class="container">
+            <div class="logo">
+                <img src="asset/img/BSI.png" alt="Logo Sekolah" style="max-height: 80px;">
+                <h2>SMKN 4 TASIKMALAYA</h2>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-custom">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="event.html">Dokumentasi</a></li>
+                    <li><a href="kalender.html">Kalender</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="calendar">
+        <div class="calendar-header">
+            <div class="controls">
+                <select id="month">
+                    <option value="0">Januari</option>
+                    <option value="1">Februari</option>
+                    <option value="2">Maret</option>
+                    <option value="3">April</option>
+                    <option value="4">Mei</option>
+                    <option value="5">Juni</option>
+                    <option value="6">Juli</option>
+                    <option value="7">Agustus</option>
+                    <option value="8">September</option>
+                    <option value="9">Oktober</option>
+                    <option value="10">November</option>
+                    <option value="11">Desember</option>
+                </select>
+                <select id="year">
+                    <!-- Tahun akan diisi oleh JavaScript -->
+                </select>
+            </div>
+        </div>
+        <div class="calendar-body">
+            <div class="calendar-week-days">
+                <div>Sen</div>
+                <div>Sel</div>
+                <div>Rab</div>
+                <div>Kam</div>
+                <div>Jum</div>
+                <div>Sab</div>
+                <div>Min</div>
+            </div>
+            <div class="calendar-days" id="calendarDays">
+                <!-- Hari akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const monthSelect = document.getElementById('month');
+        const yearSelect = document.getElementById('year');
+        const calendarDays = document.getElementById('calendarDays');
+
+        // Contoh data event
+        const events = [
+            { date: 1, month: 0, year: 2023 }, // 1 Januari 2023
+            { date: 15, month: 0, year: 2023 }, // 15 Januari 2023
+            { date: 20, month: 1, year: 2023 }, // 20 Februari 2023
+            { date: 5, month: 2, year: 2023 }   // 5 Maret 2023
+        ];
+
+        function generateCalendar(month, year) {
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+
+            let html = '';
+            let date = 1;
+
+            for (let i = 0; i < 6; i++) {
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < startingDay) {
+                        html += '<div class="day"></div>'; // Kosongkan hari sebelum tanggal pertama
+                    } else if (date > daysInMonth) {
+                        html += '<div class="day"></div>'; // Kosongkan hari setelah tanggal terakhir
+                    } else {
+                        // Cek apakah tanggal ini memiliki event
+                        const hasEvent = events.some(event => event.date === date && event.month === month && event.year === year);
+                        const eventClass = hasEvent ? 'event' : ''; // Tambahkan kelas 'event' jika ada event
+                        html += `<div class="day ${eventClass}">${date}</div>`; // Tambahkan tanggal
+                        date++;
+                    }
+                }
+            }
+
+            calendarDays.innerHTML = html; // Masukkan HTML ke dalam elemen kalender
+        }
+
+        function populateYears() {
+            const currentYear = new Date().getFullYear();
+            for (let i = currentYear - 10; i <= currentYear + 10; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                yearSelect.appendChild(option);
+            }
+            yearSelect.value = currentYear; // Set tahun saat ini sebagai default
+        }
+
+        monthSelect.addEventListener('change', () => {
+            generateCalendar(parseInt(monthSelect.value), parseInt(yearSelect.value)); // Regenerasi kalender saat bulan berubah
+        });
+
+        yearSelect.addEventListener('change', () => {
+            generateCalendar(parseInt(monthSelect.value), parseInt(yearSelect.value)); // Regenerasi kalender saat tahun berubah
+        });
+
+        populateYears(); // Isi dropdown tahun
+        generateCalendar(new Date().getMonth(), new Date().getFullYear()); // Tampilkan kalender untuk bulan dan tahun saat ini
+    </script>
+</body>
+</html>
